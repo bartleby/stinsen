@@ -820,4 +820,18 @@ public extension NavigationCoordinatable {
     ) -> Output? {
         return self._hasRoot(route, inputItem: (input: input, comparator: comparator))
     }
+
+    func isTop<Input, Output: Coordinatable>(
+        _ route: KeyPath<Self, Stinsen.Transition<Self, Presentation, Input, Output>>
+    ) -> Bool {
+        guard stack.currentRoute == route.hashValue else { return false }
+        return true
+    }
+    
+    @discardableResult func popToRoot(_ enabled: Bool, action: (() -> ())? = nil) -> Self {
+        if enabled {
+            self.popToRoot(action)
+        }
+        return self
+    }
 }

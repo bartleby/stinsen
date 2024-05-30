@@ -146,4 +146,28 @@ public extension TabCoordinatable {
         
         return self
     }
+
+    @discardableResult func hasFocusFirst<Output: Coordinatable>(
+        _ route: KeyPath<Self, Content<Self, Output>>
+    ) -> Output? {
+        if child.allItems == nil {
+            setupAllTabs()
+        }
+        
+        guard let value = child.allItems.enumerated().first(where: { item in
+            guard item.element.keyPathIsEqual(route) else {
+                return false
+            }
+            
+            return true
+        }) else {
+            fatalError()
+        }
+
+        if self.child.activeTab != value.offset {
+            return nil
+        }
+        
+        return value.element.presentable as? Output
+    }
 }
