@@ -827,6 +827,10 @@ public extension NavigationCoordinatable {
         guard stack.currentRoute == route.hashValue else { return false }
         return true
     }
+
+    func isStackEmpty() -> Bool {
+        return stack.value.isEmpty
+    }
     
     @discardableResult func popToRoot(_ enabled: Bool, action: (() -> ())? = nil) -> Self {
         if enabled {
