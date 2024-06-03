@@ -834,7 +834,7 @@ public extension NavigationCoordinatable {
     
     @discardableResult func popToRoot(_ enabled: Bool, action: (() -> ())? = nil) -> Self {
         if enabled {
-            self.popToRoot(action)
+            return self.popToRoot(action)
         }
         return self
     }
